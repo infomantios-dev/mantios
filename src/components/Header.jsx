@@ -5,7 +5,7 @@ import PrimaryButton from "./Button";
 import { Link } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "About", href: "/about" },
+  { label: "About", href: "/#about" },
   { label: "Features", href: "/#features" },
 ];
 
