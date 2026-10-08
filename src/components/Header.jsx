@@ -58,7 +58,7 @@ export default function Header() {
               </a>
             ))}
 
-            <a href="#waitlist" onClick={() => setOpen(false)}>
+            <a href="/waitlist" onClick={() => setOpen(false)}>
               <PrimaryButton className="w-full">
                 Join the waitlist
               </PrimaryButton>
