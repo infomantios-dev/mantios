@@ -1,7 +1,7 @@
 // supabase/functions/join-waitlist/email.ts
 
 const SITE_URL = "https://mantios.ng";
-const LOGO_URL = "https://mantios.ng/logo.png"; 
+const LOGO_URL = "https://mantios.ng/logo.png";
 
 // Mantios palette (light defaults; dark overrides in <style>)
 const BG = "#EFEEEB";
@@ -14,21 +14,13 @@ const ACCENT = "#7B0027";
 const FONT =
   "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif";
 
-export const subject = "You're on the Mantios waitlist";
-
-export const text = `Thank you for joining the Mantios waitlist.
-
-Your email has been added successfully. Mantios helps you verify that pharma and beauty products are genuine, so you can protect your health and your money.
-
-What happens next
-1. We build the network: trusted vendors are being onboarded so every scan is backed by real data.
-2. You get early access: waitlist members get in before the public launch.
-3. We email you: you'll hear from us as soon as your spot opens.
-
-Visit us: ${SITE_URL}
-
-You received this because you joined the Mantios waitlist.
-If this wasn't you, you can safely ignore this email.`;
+const esc = (s: string) =>
+  s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 
 const step = (n: number, title: string, body: string) => `
 <tr>
@@ -41,7 +33,27 @@ const step = (n: number, title: string, body: string) => `
   </td>
 </tr>`;
 
-export const html = `<!DOCTYPE html>
+export function buildEmail(product: string) {
+  const subject = "You're on the Mantios waitlist";
+  const p = esc(product);
+
+  const text = `Thank you for joining the Mantios waitlist.
+
+Your email has been added successfully. Mantios helps you verify that pharma and beauty products are genuine, so you can protect your health and your money.
+
+You want to verify: ${product}
+
+What happens next
+1. We build the network: trusted vendors are being onboarded so every scan is backed by real data.
+2. You get early access: waitlist members get in before the public launch.
+3. We email you: you'll hear from us as soon as your spot opens.
+
+Visit us: ${SITE_URL}
+
+You received this because you joined the Mantios waitlist.
+If this wasn't you, you can safely ignore this email.`;
+
+  const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -108,9 +120,19 @@ export const html = `<!DOCTYPE html>
             </td>
           </tr>
 
+          <!-- their product -->
+          <tr>
+            <td style="padding:24px 32px 0 32px;">
+              <div class="box" style="border:1px solid ${LINE};border-radius:14px;padding:16px 18px;background:${CARD};">
+                <div class="muted" style="font:500 12px/16px ${FONT};letter-spacing:0.4px;text-transform:uppercase;color:${MUTED};">You want to verify</div>
+                <div class="ink" style="margin-top:6px;font:600 18px/26px ${FONT};color:${INK};">${p}</div>
+              </div>
+            </td>
+          </tr>
+
           <!-- what we verify -->
           <tr>
-            <td style="padding:28px 32px 8px 32px;">
+            <td style="padding:20px 32px 8px 32px;">
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td width="50%" valign="top" style="padding-right:8px;">
@@ -171,3 +193,6 @@ export const html = `<!DOCTYPE html>
 </table>
 </body>
 </html>`;
+
+  return { subject, html, text };
+}

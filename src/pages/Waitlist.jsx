@@ -639,6 +639,11 @@ import { Link } from "react-router-dom";
 import ScanVisual from "../components/sections/ScanVisual";
 import { supabase } from "../lib/supabase";
 
+const KEY = "mantios_wl";
+const saveId = (id) => { try { localStorage.setItem(KEY, JSON.stringify({ id })); } catch {} };
+const loadId = () => { try { return JSON.parse(localStorage.getItem(KEY))?.id ?? null; } catch { return null; } };
+const clearId = () => { try { localStorage.removeItem(KEY); } catch {} };
+
 function InfoGrid({ className = "" }) {
   const cell =
     "flex h-[48px] items-center justify-center gap-3 px-4 text-[15px]";
@@ -731,8 +736,8 @@ function ProductFrame() {
 export default function WaitlistSection() {
   const [email, setEmail] = useState("");
   const [product, setProduct] = useState("");
-  const [memberId, setMemberId] = useState(null);
-  const [status, setStatus] = useState("idle"); // idle | loading | product | saving | success
+  const [memberId, setMemberId] = useState(() => loadId());
+  const [status, setStatus] = useState(() => (loadId() ? "product" : "idle")); // idle | loading | product | saving | success
   const [error, setError] = useState("");
 
   // Step 1: email -> saved + confirmation mail
@@ -756,7 +761,14 @@ export default function WaitlistSection() {
       setError("This email is already on the waitlist.");
       return;
     }
+    if (!data?.id) {
+      setStatus("idle");
+      setError("Something went wrong. Please try again.");
+      return;
+    }
 
+    // new signup, or an existing one that still needs a product
+    saveId(data.id);
     setMemberId(data.id);
     setStatus("product");
   };
@@ -780,6 +792,7 @@ export default function WaitlistSection() {
       setError("Something went wrong. Please try again.");
       return;
     }
+    clearId();
     setStatus("success");
   };
 
@@ -835,7 +848,7 @@ export default function WaitlistSection() {
             <span style={{ color: "var(--dotcolor)" }}>Mantios</span> waitlist
           </h1>
           <p className="mt-4 thanksforjointxtemail">
-            We'll contact you by email with updates and details about opportunities to participate in early testing.
+            Your email has been added to the waitlist successfully,
           </p>
 
           {/* success graphic: dashed circle containing analyzing + grid */}
@@ -883,7 +896,7 @@ export default function WaitlistSection() {
                   required
                   maxLength={120}
                   autoFocus
-                  placeholder="e.g. Cerave cleanser, Biore UV, Nivea lotion"
+                  placeholder="e.g. Panadol, body lotion, serum"
                   value={product}
                   onChange={(e) => setProduct(e.target.value)}
                   className="flex-1 rounded-full border px-5 py-3 outline-none focus:[border-color:var(--dotcolor)]"
@@ -898,7 +911,7 @@ export default function WaitlistSection() {
                   disabled={status === "saving"}
                   className="rounded-full px-6 py-3 font-medium disabled:opacity-60 primarybutton"
                 >
-                  <span>{status === "saving" ? "Saving..." : "Join waitlist"}</span>
+                  <span>{status === "saving" ? "Saving..." : "Submit"}</span>
                 </button>
               </form>
 
@@ -912,7 +925,6 @@ export default function WaitlistSection() {
               </h1>
               <p className="mt-4" style={{ color: "var(--p1color)" }}>
                 Be a part of the movement, protect your health and your money
-                
               </p>
 
               <form
