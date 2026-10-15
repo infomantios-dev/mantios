@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
+import Headerone from "./components/Headerone";
 import Layout from "./components/Layout";
 
 import Home from "./pages/Home";
@@ -21,7 +22,7 @@ function App() {
 
       {isWaitlist ? (
         <>
-          <Header />
+          <Headerone />
 
           <Routes>
             <Route path="/waitlist" element={<Waitlist />} />

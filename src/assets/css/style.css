@@ -120,6 +120,15 @@
   padding: 10px;
 
 }
+input::placeholder {
+  font-family: Instrument Sans;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 13px;
+  leading-trim: NONE;
+  line-height: 15.6px;
+  letter-spacing: 0%;
+}
 .waitlistborderroundwid{
   width: 350px;
   height: 350px;
@@ -186,7 +195,7 @@
   line-height: 19.2px;
   letter-spacing: 0%;
   text-align: center;
-  color: var(--emailtxtcolor);
+  color: var(--abthmepcolor);
 
 }
 .analyze{
