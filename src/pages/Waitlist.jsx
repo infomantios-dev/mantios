@@ -848,7 +848,7 @@ export default function WaitlistSection() {
             <span style={{ color: "var(--dotcolor)" }}>Mantios</span> waitlist
           </h1>
           <p className="mt-4 thanksforjointxtemail">
-            Your email has been added to the waitlist successfully,
+            We'll contact you by email with updates and details about opportunities to participate in early testing.
           </p>
 
           {/* success graphic: dashed circle containing analyzing + grid */}
