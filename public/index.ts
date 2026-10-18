@@ -50,7 +50,7 @@ Deno.serve(async (req) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Mantios <hello@yourdomain.com>", // your verified domain
+      from: "Mantios <hello@mantios.ng>", 
       to: email,
       subject,
       html,
