@@ -667,7 +667,7 @@ function InfoGrid({ className = "" }) {
           alt=""
           className="h-4 w-4 object-contain"
         />
-        <span>Pharma</span>
+        <span>Skincare</span>
       </div>
 
       {/* Beauty */}
@@ -683,7 +683,7 @@ function InfoGrid({ className = "" }) {
           alt=""
           className="h-4 w-4 object-contain"
         />
-        <span>Beauty</span>
+        <span>Cosmetic</span>
       </div>
 
       {/* Vendor Network */}
@@ -882,7 +882,7 @@ export default function WaitlistSection() {
                 <span style={{ color: "var(--dotcolor)" }}>Mantios?</span>
               </h1>
               <p className="mt-4" style={{ color: "var(--p1color)" }}>
-                Tell us the beauty, skincare, or pharmaceutical product you'd love to verify. Your response <br/> will help us shape our early testing experience around the products that matter to you.
+                Tell us the beauty, skincare, or Cosmetics product you'd love to verify. Your response <br/> will help us shape our early testing experience around the products that matter to you.
               </p>
 
               <form

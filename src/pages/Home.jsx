@@ -527,8 +527,8 @@ const Hero = () => {
             >
               Verify Authenticity
               <br />
-              Of your Beauty and <br /> 
-              Pharmaceutical Products
+              Of your skincare and <br /> 
+              cosmetic Products
             </h1>
           </div>
 
