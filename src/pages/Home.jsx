@@ -23,6 +23,7 @@ import profile1 from "../assets/img/profile1.jpg";
 import profile2 from "../assets/img/profile2.jpg";
 import PrimaryButtontwo from "../components/Buttontwo";
 import { Link } from "react-router-dom";
+import ScanTipsChallenge from "../components/ScanTipsChallenge";
 
 /** Fires once an element enters the viewport; used for scroll-reveal. */
 function useReveal(threshold = 0.2) {
@@ -792,6 +793,7 @@ const VendorOnboarding = () => {
   );
 };
 
+
 /* ============================================================================
    SECTION: Testimonials
    ========================================================================== */
@@ -939,6 +941,7 @@ export default function App() {
      
       <Hero />
       <VendorOnboarding />
+      <ScanTipsChallenge onComplete={() => window.scrollTo({ top: 0, behavior: "smooth" })} />
       <Testimonials />
       <CTA />
       
